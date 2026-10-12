@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    function isSignedIn() { return request.auth != null; }
+    
+    // Products can be read by anyone, but only created/updated by admins if we had roles.
+    // For now, let's allow signed-in users to list/create/update/delete.
+    
+    // In a real app we would want an admin claim or a user roles table.
+    // The instructions say "Bootstrapped Admin: Include User email from runtime as an admin if the application has an admin feature."
+    // User email: jtwrightinterior@gmail.com
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == 'jtwrightinterior@gmail.com';
+    }
+    
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    
+    function existing() { return resource.data; }
+    function incoming() { return request.resource.data; }
+    
+    function isValidProduct(data) {
+      return data.keys().hasAll(['name', 'price', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+             (data.price is number) &&
+             data.createdAt == request.time &&
+             (!('description' in data) || (data.description is string && data.description.size() <= 2000)) &&
+             (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 2000)) &&
+             (!('category' in data) || (data.category is string && data.category.size() <= 100));
+    }
+    
+    function isValidProductUpdate(data) {
+      return data.keys().hasAll(['name', 'price', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+             (data.price is number) &&
+             (!('description' in data) || (data.description is string && data.description.size() <= 2000)) &&
+             (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 2000)) &&
+             (!('category' in data) || (data.category is string && data.category.size() <= 100));
+    }
+    
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
+      // Note: for updates, createdAt should be checked to remain the same.
+      allow update: if isAdmin() && isValidId(productId) && isValidProductUpdate(incoming()) && incoming().createdAt == existing().createdAt;
+      allow delete: if isAdmin() && isValidId(productId);
+    }
+  }
+}
