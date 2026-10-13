@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#f8faf9]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Just the Wright Interiors — Digital Showroom & Client Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              sage: '#8ea896',
+              'sage-dark': '#556b5d',
+              'sage-light': '#e9eee9',
+              charcoal: '#1a1f1c',
+              sand: '#f3f4f3',
+              paper: '#f8faf9',
+              border: '#e2e6e3',
+              gold: '#c5a059'
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      color: #1a1f1c;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Smooth page fade */
+    .view-transition {
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Hide scrollbars but keep touch scroll */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Equalizer wave animation */
+    @keyframes eqBar {
+      0%, 100% { height: 6px; }
+      50% { height: 26px; }
+    }
+    .eq-active-1 { animation: eqBar 0.6s infinite ease-in-out; }
+    .eq-active-2 { animation: eqBar 0.8s infinite 0.15s ease-in-out; }
+    .eq-active-3 { animation: eqBar 0.5s infinite 0.3s ease-in-out; }
+    .eq-active-4 { animation: eqBar 0.9s infinite 0.1s ease-in-out; }
+    .eq-active-5 { animation: eqBar 0.7s infinite 0.25s ease-in-out; }
+  </style>
+</head>
+<body class="h-full flex flex-col bg-[#f8faf9] text-[#1a1f1c] select-none antialiased">
+
+  <!-- ================= TOP APP BAR ================= -->
+  <header class="sticky top-0 z-40 bg-[#f8faf9]/90 backdrop-blur-md border-b border-brand-border/80 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-2.5 cursor-pointer" onclick="navigate('home')">
+      <div class="w-8 h-8 rounded-full bg-brand-charcoal text-white flex items-center justify-center font-cinzel text-xs tracking-widest font-semibold shadow-sm">
+        JW
+      </div>
+      <div>
+        <div class="text-[13px] font-cinzel tracking-[0.16em] uppercase font-bold text-brand-charcoal leading-none">
+          Just The Wright
+        </div>
+        <div class="text-[9px] tracking-[0.24em] uppercase text-brand-sage-dark font-medium mt-0.5">
+          Interiors & Atelier
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Header -->
+    <div class="flex items-center space-x-2">
+      <a href="tel:12345679616" class="p-2 rounded-full hover:bg-brand-sand text-brand-charcoal transition-colors" title="Call Jordan Wright">
+        <i data-lucide="phone" class="w-4 h-4"></i>
+      </a>
+      <button onclick="navigate('cart')" class="relative p-2 rounded-full hover:bg-brand-sand text-brand-charcoal transition-colors">
+        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        <span id="headerCartCount" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand-sage-dark text-white text-[9px] font-bold flex items-center justify-center scale-100">
+          2
+        </span>
+      </button>
+      <button onclick="navigate('about')" class="w-7 h-7 rounded-full overflow-hidden border border-brand-sage/40 ml-1">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRBsx8WIY8bQkLvNxq9SiGvNusHjF1QrzIecjXqwRT8xokAB_ddkI7mF2CLA6-qkwdfTlnYUp4xQOTTHIioGV0sbziVtmlKyuU5w5Nqh06UGOMOJGN4cC7u5mnfWW-qedo2hgT_c2eGKfoK-CK3nTFFSEOAaHeyLhlcjWGJRrqkftfXg82Gz-ekwR5gP0B_d-a_7fuw5EdiGFJ9Cd0C7X1QgEZktK16MdYMKUZRtwgB5ri_yLWnduppfLIzQIcigQGeU" alt="Jordan Wright" class="w-full h-full object-cover">
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT VIEWPORT ================= -->
+  <main id="appRoot" class="flex-1 overflow-y-auto no-scrollbar pb-24">
+    <!-- Dynamic views injected here by router -->
+  </main>
+
+  <!-- ================= BOTTOM PERSISTENT TAB BAR ================= -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-[#f8faf9]/95 backdrop-blur-lg border-t border-brand-border/80 px-3 py-2">
+    <div class="max-w-md mx-auto grid grid-cols-5 gap-1">
+      <button onclick="navigate('home')" id="tab-home" class="tab-btn flex flex-col items-center justify-center py-1 rounded-lg text-brand-charcoal transition-colors">
+        <i data-lucide="home" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Studio</span>
+      </button>
+
+      <button onclick="navigate('services')" id="tab-services" class="tab-btn flex flex-col items-center justify-center py-1 rounded-lg text-neutral-400 hover:text-brand-charcoal transition-colors">
+        <i data-lucide="compass" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Services</span>
+      </button>
+
+      <button onclick="navigate('booking')" id="tab-booking" class="tab-btn flex flex-col items-center justify-center py-1 rounded-lg text-neutral-400 hover:text-brand-charcoal transition-colors">
+        <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Book</span>
+      </button>
+
+      <button onclick="navigate('shop')" id="tab-shop" class="tab-btn flex flex-col items-center justify-center py-1 rounded-lg text-neutral-400 hover:text-brand-charcoal transition-colors">
+        <i data-lucide="package" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Shop</span>
+      </button>
+
+      <button onclick="navigate('vault')" id="tab-vault" class="tab-btn flex flex-col items-center justify-center py-1 rounded-lg text-neutral-400 hover:text-brand-charcoal transition-colors">
+        <i data-lucide="shield-check" class="w-5 h-5 mb-0.5"></i>
+        <span class="text-[10px] font-medium tracking-tight">Vault</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= AUDIO & TOAST NOTIFICATION UTILITIES ================= -->
+  <div id="toastContainer" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-[-8px]">
+    <div id="toastContent" class="bg-brand-charcoal text-white text-xs px-4 py-2.5 rounded-full shadow-lg flex items-center space-x-2 border border-brand-sage/40">
+      <i data-lucide="check" class="w-3.5 h-3.5 text-brand-sage"></i>
+      <span id="toastText">Action completed</span>
+    </div>
+  </div>
+
+  <!-- ================= APPLICATION CLIENT ROUTER & SCREENS ================= -->
+  <script>
+    // Global Application State
+    const AppState = {
+      client: {
+        name: "Katherine Vance",
+        project: "1912 Craftsman Manor",
+        location: "Chagrin Falls, OH",
+        phone: "+1 (216) 555-0192"
+      },
+      consultant: {
+        name: "Jordan Wright",
+        role: "Founding Principal & Design Technician",
+        phone: "1 (234) 567-9616",
+        email: "jw@jtwrightinteriors.com",
+        nextSlot: "Tue, Nov 19 @ 11:00 AM EST"
+      },
+      cart: [
+        {
+          id: 'boucle-chair',
+          name: 'The Artisan Bouclé Occasional Chair',
+          spec: 'Quarter-Sawn White Oak / Oatmeal Bouclé',
+          price: 2450,
+          quantity: 1
+        },
+        {
+          id: 'swatch-box',
+          name: 'Nordic Materiality Curated Swatch Box',
+          spec: 'Linen, Oak Stains, Patina Brass Hardware',
+          price: 85,
+          quantity: 1
+        }
+      ],
+      currentRoute: 'home',
+      activeFilter: 'all',
+      activeChimePlaying: false
+    };
+
+    // Synthesized Web Audio API Studio Chime
+    function playNordicChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+        const now = ctx.currentTime;
+        
+        // Triad harmonics (C5, E5, G5)
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + (i * 0.08));
+          
+          gain.gain.setValueAtTime(0.001, now + (i * 0.08));
+          gain.gain.exponentialRampToValueAtTime(0.18 / (i + 1), now + (i * 0.08) + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8 + (i * 0.15));
+          
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          
+          osc.start(now + (i * 0.08));
+          osc.stop(now + 2.2);
+        });
+
+        // Trigger Equalizer animation in UI
+        const eqBars = document.querySelectorAll('.chime-eq-bar');
+        eqBars.forEach((bar, idx) => {
+          bar.classList.add(`eq-active-${(idx % 5) + 1}`);
+        });
+        setTimeout(() => {
+          eqBars.forEach((bar, idx) => {
+            bar.classList.remove(`eq-active-${(idx % 5) + 1}`);
+          });
+        }, 2200);
+
+        showToast("Nordic Studio 48kHz Acoustic Chime Verified");
+      } catch (e) {
+        console.warn("AudioContext init error", e);
+        showToast("Audio hardware test verified");
+      }
+    }
+
+    // UI Toast Notification helper
+    function showToast(msg) {
+      const toast = document.getElementById('toastContainer');
+      const text = document.getElementById('toastText');
+      text.innerText = msg;
+      toast.classList.remove('opacity-0', 'translate-y-[-8px]');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-[-8px]');
+      }, 2600);
+    }
+
+    // Router and Template views
+    const routes = {
+      // 1. DIGITAL SHOWROOM / HOME
+      'home': () => `
+        <div class="view-transition px-4 pt-4 space-y-6">
+          <!-- Hero Section -->
+          <div class="relative rounded-2xl overflow-hidden bg-brand-charcoal text-white p-6 shadow-md">
+            <div class="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-brand-sage/20 blur-3xl pointer-events-none"></div>
+            <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-white/10 text-brand-sage-light text-[11px] font-medium tracking-wide uppercase mb-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-sage animate-pulse"></span>
+              <span>Chagrin Falls Architectural Studio</span>
+            </div>
+            <h1 class="serif-title text-2xl font-normal leading-snug mb-2">
+              Bespoke Nordic Elegance Meets Craftsman Heritage
+            </h1>
+            <p class="text-xs text-neutral-300 font-light leading-relaxed mb-4">
+              Harmonizing Scandinavian minimalism with historic Ohio architectural integrity. Directed by Jordan Wright.
+            </p>
+            <div class="flex items-center space-x-3">
+              <button onclick="navigate('booking')" class="px-4 py-2.5 rounded-full bg-white text-brand-charcoal text-xs font-semibold hover:bg-neutral-100 transition-all shadow-sm">
+                Book Consultation
+              </button>
+              <button onclick="navigate('about')" class="px-4 py-2.5 rounded-full bg-white/10 text-white text-xs font-medium hover:bg-white/20 transition-all">
+                Meet Jordan
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Client Live Callout (Katherine Vance) -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-sand flex items-center justify-center text-brand-sage-dark font-cinzel font-bold text-sm">
+                1912
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-brand-charcoal">1912 Craftsman Manor Project</div>
+                <div class="text-[11px] text-neutral-500">Chagrin Falls · Phase 4 Delivery Active</div>
+              </div>
+            </div>
+            <button onclick="navigate('vault')" class="px-3 py-1.5 rounded-lg bg-brand-sand hover:bg-brand-border text-brand-charcoal text-xs font-medium transition-colors">
+              Open Vault
+            </button>
+          </div>
+
+          <!-- Interactive 3D LiDAR & Ingress Fast Access -->
+          <div class="grid grid-cols-2 gap-3">
+            <div onclick="navigate('ingress')" class="cursor-pointer bg-white border border-brand-border rounded-xl p-4 hover:border-brand-sage transition-all shadow-sm">
+              <div class="w-7 h-7 rounded-lg bg-brand-sand text-brand-charcoal flex items-center justify-center mb-3">
+                <i data-lucide="box" class="w-4 h-4"></i>
+              </div>
+              <div class="text-xs font-semibold text-brand-charcoal mb-0.5">3D Ingress Vector</div>
+              <div class="text-[10px] text-neutral-500 leading-tight">LiDAR clearance for staircase rigging</div>
+            </div>
+
+            <div onclick="navigate('hardware')" class="cursor-pointer bg-white border border-brand-border rounded-xl p-4 hover:border-brand-sage transition-all shadow-sm">
+              <div class="w-7 h-7 rounded-lg bg-brand-sand text-brand-charcoal flex items-center justify-center mb-3">
+                <i data-lucide="video" class="w-4 h-4"></i>
+              </div>
+              <div class="text-xs font-semibold text-brand-charcoal mb-0.5">Google Meet Check</div>
+              <div class="text-[10px] text-neutral-500 leading-tight">Interactive camera & studio audio test</div>
+            </div>
+          </div>
+
+          <!-- Curated Featured Furniture -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="serif-title text-base font-semibold text-brand-charcoal">Curated Atelier Pieces</h2>
+              <button onclick="navigate('shop')" class="text-xs text-brand-sage-dark font-medium hover:underline">View All</button>
+            </div>
+            <div class="bg-white border border-brand-border rounded-xl overflow-hidden p-4 shadow-sm flex items-center space-x-4">
+              <div class="w-20 h-20 rounded-lg bg-brand-sand flex-shrink-0 flex items-center justify-center text-neutral-400">
+                <i data-lucide="armchair" class="w-8 h-8 text-brand-sage-dark"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-xs font-semibold text-brand-charcoal truncate">Artisan Bouclé Occasional Chair</div>
+                <div class="text-[11px] text-neutral-500 mb-1">Quarter-Sawn White Oak Frame</div>
+                <div class="text-xs font-bold text-brand-charcoal">$2,450.00</div>
+              </div>
+              <button onclick="navigate('shop')" class="p-2 rounded-full bg-brand-sand hover:bg-brand-sage hover:text-white transition-colors">
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 2. ABOUT JORDAN WRIGHT + TIMBER GUILD PEER REVIEWS
+      'about': () => `
+        <div class="view-transition px-4 pt-4 space-y-5">
+          <!-- Profile Card -->
+          <div class="bg-white border border-brand-border rounded-2xl p-5 shadow-sm">
+            <div class="flex items-start space-x-4 mb-4">
+              <div class="w-20 h-24 rounded-xl overflow-hidden border border-brand-border flex-shrink-0">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRBsx8WIY8bQkLvNxq9SiGvNusHjF1QrzIecjXqwRT8xokAB_ddkI7mF2CLA6-qkwdfTlnYUp4xQOTTHIioGV0sbziVtmlKyuU5w5Nqh06UGOMOJGN4cC7u5mnfWW-qedo2hgT_c2eGKfoK-CK3nTFFSEOAaHeyLhlcjWGJRrqkftfXg82Gz-ekwR5gP0B_d-a_7fuw5EdiGFJ9Cd0C7X1QgEZktK16MdYMKUZRtwgB5ri_yLWnduppfLIzQIcigQGeU" alt="Jordan Wright" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-brand-sand text-brand-sage-dark text-[10px] font-semibold mb-1">
+                  <span>● Active Design Principal</span>
+                </div>
+                <h1 class="serif-title text-lg font-bold text-brand-charcoal">Jordan Wright</h1>
+                <div class="text-xs text-neutral-500">Customer Design Technician & Principal</div>
+                <div class="text-[11px] text-brand-sage-dark font-medium mt-1">Just the Wright Interiors · Chagrin Falls, OH</div>
+              </div>
+            </div>
+
+            <!-- Live Slot Badge (Tappable straight to booking) -->
+            <div onclick="navigate('booking')" class="cursor-pointer bg-brand-sand border border-brand-sage/40 rounded-xl p-3 flex items-center justify-between hover:bg-brand-sage-light/60 transition-colors mb-4">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                <div>
+                  <div class="text-xs font-bold text-brand-charcoal">Next Open Consultation Slot</div>
+                  <div class="text-[11px] text-neutral-600">Tuesday, Nov 19 @ 11:00 AM EST</div>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-brand-sage-dark"></i>
+            </div>
+
+            <p class="text-xs text-neutral-600 leading-relaxed font-light mb-4">
+              Specializing in high-tolerance residential interior architecture, bespoke quarter-sawn millwork, and seamless BIM/LiDAR integrations. Crafting tranquil Scandinavian aesthetics tailored to Northeastern Ohio historic estates.
+            </p>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="navigate('booking')" class="w-full py-2.5 rounded-full bg-brand-charcoal text-white text-xs font-semibold hover:bg-black transition-colors">
+                Schedule Session
+              </button>
+              <a href="tel:12345679616" class="w-full py-2.5 rounded-full border border-brand-border text-center text-xs font-semibold text-brand-charcoal hover:bg-brand-sand transition-colors block">
+                Direct Call: (234) 567-9616
+              </a>
+            </div>
+          </div>
+
+          <!-- Peer Endorsements with Filter Tabs -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="serif-title text-base font-semibold text-brand-charcoal">Endorsements & Provenance</h2>
+              <span class="text-[10px] text-neutral-400 font-medium">Verified Peer Reviews</span>
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-1">
+              <button onclick="setEndorsementFilter('all')" class="filter-chip px-3 py-1 rounded-full text-xs font-medium ${AppState.activeFilter === 'all' ? 'bg-brand-charcoal text-white' : 'bg-white border border-brand-border text-neutral-600'}">
+                All (4)
+              </button>
+              <button onclick="setEndorsementFilter('architectural')" class="filter-chip px-3 py-1 rounded-full text-xs font-medium ${AppState.activeFilter === 'architectural' ? 'bg-brand-charcoal text-white' : 'bg-white border border-brand-border text-neutral-600'}">
+                Architectural Peer
+              </button>
+              <button onclick="setEndorsementFilter('residential')" class="filter-chip px-3 py-1 rounded-full text-xs font-medium ${AppState.activeFilter === 'residential' ? 'bg-brand-charcoal text-white' : 'bg-white border border-brand-border text-neutral-600'}">
+                Residential Clients
+              </button>
+            </div>
+
+            <!-- Endorsement Items -->
+            <div class="space-y-3">
+              <!-- Ohio Artisan Timber Guild -->
+              <div class="endorsement-card ${AppState.activeFilter === 'residential' ? 'hidden' : ''} bg-white border border-brand-border rounded-xl p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <div class="w-6 h-6 rounded bg-brand-sand text-brand-sage-dark flex items-center justify-center font-bold text-[10px]">
+                      TG
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-brand-charcoal">Ohio Artisan Timber Guild</div>
+                      <div class="text-[10px] text-brand-sage-dark font-medium">Bespoke Architectural Peer Review</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded">Verified Guild</span>
+                </div>
+                <p class="text-xs text-neutral-600 italic font-light leading-relaxed">
+                  "Jordan's digital LiDAR scans allow our joinery shop to mill quarter-sawn white oak with sub-millimeter tolerances before touching the property. His understanding of historic grain expansion is peerless."
+                </p>
+                <div class="mt-2 text-[10px] text-neutral-400">Master Craftsman Guild Review · Millwork Accreditation</div>
+              </div>
+
+              <!-- Katherine Vance -->
+              <div class="endorsement-card ${AppState.activeFilter === 'architectural' ? 'hidden' : ''} bg-white border border-brand-border rounded-xl p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <div class="w-6 h-6 rounded-full bg-brand-sage/20 text-brand-sage-dark flex items-center justify-center font-bold text-[10px]">
+                      KV
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-brand-charcoal">Katherine Vance</div>
+                      <div class="text-[10px] text-neutral-500">1912 Craftsman Manor, Chagrin Falls</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-neutral-400">Homeowner</span>
+                </div>
+                <p class="text-xs text-neutral-600 italic font-light leading-relaxed">
+                  "Jordan transformed our dark heritage foyer into an airy Nordic sanctuary. The pre-call hardware walkthrough and live CAD point clouds gave us complete peace of mind."
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 3. BOOKING & CONSULTATION
+      'booking': () => `
+        <div class="view-transition px-4 pt-4 space-y-5">
+          <div class="bg-white border border-brand-border rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-brand-sage-dark font-semibold">Discovery Session</span>
+                <h1 class="serif-title text-xl font-bold text-brand-charcoal">Book with Jordan Wright</h1>
+              </div>
+              <div class="w-10 h-10 rounded-full overflow-hidden border border-brand-border">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRBsx8WIY8bQkLvNxq9SiGvNusHjF1QrzIecjXqwRT8xokAB_ddkI7mF2CLA6-qkwdfTlnYUp4xQOTTHIioGV0sbziVtmlKyuU5w5Nqh06UGOMOJGN4cC7u5mnfWW-qedo2hgT_c2eGKfoK-CK3nTFFSEOAaHeyLhlcjWGJRrqkftfXg82Gz-ekwR5gP0B_d-a_7fuw5EdiGFJ9Cd0C7X1QgEZktK16MdYMKUZRtwgB5ri_yLWnduppfLIzQIcigQGeU" alt="Jordan Wright" class="w-full h-full object-cover">
+              </div>
+            </div>
+
+            <div class="p-3 bg-brand-sand rounded-xl text-xs text-neutral-600 mb-4 border border-brand-border">
+              <div class="font-semibold text-brand-charcoal mb-0.5">Focus Slot: Tuesday, Nov 19 @ 11:00 AM EST</div>
+              <div>Format: 20-Minute High-Fidelity Google Meet LiDAR Review</div>
+            </div>
+
+            <!-- Calendar Selector Simulation -->
+            <div class="space-y-3">
+              <label class="block text-xs font-semibold text-brand-charcoal">Available Time Slots</label>
+              <div class="grid grid-cols-2 gap-2">
+                <button class="slot-btn py-2 px-3 rounded-lg border-2 border-brand-charcoal bg-brand-charcoal text-white text-xs font-semibold text-center">
+                  Nov 19 · 11:00 AM (Active)
+                </button>
+                <button class="slot-btn py-2 px-3 rounded-lg border border-brand-border bg-white text-brand-charcoal text-xs font-medium text-center hover:border-brand-sage">
+                  Nov 19 · 2:30 PM
+                </button>
+                <button class="slot-btn py-2 px-3 rounded-lg border border-brand-border bg-white text-brand-charcoal text-xs font-medium text-center hover:border-brand-sage">
+                  Nov 20 · 10:00 AM
+                </button>
+                <button class="slot-btn py-2 px-3 rounded-lg border border-brand-border bg-white text-brand-charcoal text-xs font-medium text-center hover:border-brand-sage">
+                  Nov 21 · 1:00 PM
+                </button>
+              </div>
+            </div>
+
+            <!-- Intake Details Form -->
+            <div class="mt-4 space-y-3">
+              <div>
+                <label class="block text-[11px] font-medium text-neutral-600 mb-1">Your Name</label>
+                <input type="text" value="${AppState.client.name}" class="w-full px-3 py-2 rounded-lg border border-brand-border bg-[#f8faf9] text-xs text-brand-charcoal focus:outline-none focus:border-brand-sage">
+              </div>
+              <div>
+                <label class="block text-[11px] font-medium text-neutral-600 mb-1">Project & Address</label>
+                <input type="text" value="${AppState.client.project}, ${AppState.client.location}" class="w-full px-3 py-2 rounded-lg border border-brand-border bg-[#f8faf9] text-xs text-brand-charcoal focus:outline-none focus:border-brand-sage">
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-2">
+              <button onclick="navigate('invite')" class="w-full py-3 rounded-full bg-brand-charcoal text-white text-xs font-semibold hover:bg-black transition-colors shadow-sm flex items-center justify-center space-x-2">
+                <span>Confirm & Sync to Google Calendar</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <div class="text-[10px] text-center text-neutral-400">
+                Mutual Architectural Non-Disclosure Agreement (NDA) Protected
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 4. GOOGLE MEET INVITATION DISPATCHED
+      'invite': () => `
+        <div class="view-transition px-4 pt-4 space-y-5">
+          <div class="bg-white border border-brand-border rounded-2xl p-5 shadow-sm text-center">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="calendar-check" class="w-6 h-6"></i>
+            </div>
+            <h1 class="serif-title text-xl font-bold text-brand-charcoal mb-1">Invitation Dispatched</h1>
+            <p class="text-xs text-neutral-500 mb-4">Confirmed with Jordan Wright · Google Meet calendar sync ready</p>
+
+            <div class="bg-brand-sand border border-brand-border rounded-xl p-4 text-left space-y-2 mb-5">
+              <div class="flex items-center justify-between text-xs font-semibold text-brand-charcoal">
+                <span>Discovery & LiDAR Elevation</span>
+                <span class="text-brand-sage-dark font-bold">11:00 AM EST</span>
+              </div>
+              <div class="text-[11px] text-neutral-600">Client: ${AppState.client.name} (${AppState.client.project})</div>
+              <div class="text-[11px] text-neutral-500 font-mono">meet.google.com/jtw-scandi-craft</div>
+            </div>
+
+            <div class="space-y-2.5">
+              <button onclick="navigate('hardware')" class="w-full py-3 rounded-full bg-brand-charcoal text-white text-xs font-semibold hover:bg-black transition-colors shadow-sm flex items-center justify-center space-x-2">
+                <i data-lucide="video" class="w-4 h-4"></i>
+                <span>Join Google Meet Test Room</span>
+              </button>
+              <button onclick="navigate('meeting')" class="w-full py-2.5 rounded-full border border-brand-border text-xs font-medium text-brand-charcoal hover:bg-brand-sand transition-colors">
+                Simulate Direct Call Entry
+              </button>
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 5. PRE-CALL HARDWARE & AUDIO CHIME CHECK
+      'hardware': () => `
+        <div class="view-transition px-4 pt-4 space-y-5">
+          <div class="bg-white border border-brand-border rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-brand-charcoal">Pre-Call Hardware Diagnostic</span>
+              </div>
+              <span class="text-[10px] font-mono text-neutral-400">1080P HD · 60FPS</span>
+            </div>
+
+            <!-- Video Simulation Feed Viewport -->
+            <div class="relative rounded-xl overflow-hidden bg-brand-charcoal aspect-video mb-3 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center mx-auto mb-2">
+                  <i data-lucide="user" class="w-6 h-6 text-brand-sage"></i>
+                </div>
+                <div class="text-xs font-semibold text-white">${AppState.client.name} (Self)</div>
+                <div class="text-[10px] text-neutral-300">FaceTime HD · Latency 11ms</div>
+              </div>
+              <!-- Floating video overlay buttons -->
+              <div class="absolute bottom-2 left-2 right-2 flex justify-center space-x-2">
+                <span class="px-2 py-1 rounded bg-black/60 text-white text-[10px] backdrop-blur-sm">Mic Active</span>
+                <span class="px-2 py-1 rounded bg-black/60 text-white text-[10px] backdrop-blur-sm">Camera On</span>
+              </div>
+            </div>
+
+            <!-- Waveform & Interactive Chime Test -->
+            <div class="bg-brand-sand rounded-xl p-3 border border-brand-border mb-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-xs font-semibold text-brand-charcoal flex items-center space-x-1.5">
+                  <i data-lucide="mic" class="w-3.5 h-3.5 text-brand-sage-dark"></i>
+                  <span>Microphone Waveform & Studio Chime</span>
+                </div>
+                <button onclick="playNordicChime()" class="px-2.5 py-1 rounded-full bg-brand-charcoal text-white text-[10px] font-semibold hover:bg-black transition-colors flex items-center space-x-1">
+                  <i data-lucide="volume-2" class="w-3 h-3"></i>
+                  <span>Test Chime</span>
+                </button>
+              </div>
+
+              <!-- Animated Equalizer Bars -->
+              <div class="h-8 flex items-center justify-center space-x-1.5 bg-white rounded-lg px-3 border border-brand-border">
+                <div class="chime-eq-bar w-1.5 h-2 bg-brand-sage-dark rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-3 bg-brand-sage rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-4 bg-brand-charcoal rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-2.5 bg-brand-sage rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-5 bg-brand-sage-dark rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-3 bg-brand-charcoal rounded-full transition-all"></div>
+                <div class="chime-eq-bar w-1.5 h-2 bg-brand-sage rounded-full transition-all"></div>
+              </div>
+              <div class="text-[9px] text-neutral-500 mt-1.5 text-center">
+                Native Web Audio API 48kHz lossless synthetic frequency monitor
+              </div>
+            </div>
+
+            <!-- 4-Point System Readiness Matrix -->
+            <div class="space-y-1.5 mb-4 text-xs">
+              <div class="flex items-center justify-between py-1 border-b border-neutral-100">
+                <span class="text-neutral-600">Camera / 1080p WebRTC</span>
+                <span class="text-emerald-600 font-semibold flex items-center"><i data-lucide="check" class="w-3 h-3 mr-1"></i> Passed</span>
+              </div>
+              <div class="flex items-center justify-between py-1 border-b border-neutral-100">
+                <span class="text-neutral-600">Studio Acoustic Monitor</span>
+                <span class="text-emerald-600 font-semibold flex items-center"><i data-lucide="check" class="w-3 h-3 mr-1"></i> Echo Cleared</span>
+              </div>
+              <div class="flex items-center justify-between py-1">
+                <span class="text-neutral-600">LiDAR 3D Point-Cloud Engine</span>
+                <span class="text-emerald-600 font-semibold flex items-center"><i data-lucide="check" class="w-3 h-3 mr-1"></i> Pre-Loaded</span>
+              </div>
+            </div>
+
+            <button onclick="navigate('meeting')" class="w-full py-3 rounded-full bg-brand-charcoal text-white text-xs font-semibold hover:bg-black transition-colors shadow-sm flex items-center justify-center space-x-2">
+              <i data-lucide="phone-call" class="w-4 h-4"></i>
+              <span>Join Meeting Now (Jordan In Room)</span>
+            </button>
+          </div>
+        </div>
+      `,
+
+      // 6. LIVE GOOGLE MEET CALL SIMULATION
+      'meeting': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <div class="relative rounded-2xl overflow-hidden bg-brand-charcoal text-white p-4 shadow-lg min-h-[440px] flex flex-col justify-between">
+            <!-- Header Telemetry Bar -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="text-[11px] font-mono tracking-wider">● 18:44 / 20:00</span>
+              </div>
+              <div class="text-[10px] px-2 py-0.5 rounded bg-white/10 font-mono">
+                meet.google.com/jtw-scandi-craft
+              </div>
+            </div>
+
+            <!-- Main Stage Video: Jordan Wright -->
+            <div class="my-auto text-center py-4 relative">
+              <div class="w-28 h-36 rounded-xl overflow-hidden mx-auto border-2 border-brand-sage/60 shadow-md mb-2">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRBsx8WIY8bQkLvNxq9SiGvNusHjF1QrzIecjXqwRT8xokAB_ddkI7mF2CLA6-qkwdfTlnYUp4xQOTTHIioGV0sbziVtmlKyuU5w5Nqh06UGOMOJGN4cC7u5mnfWW-qedo2hgT_c2eGKfoK-CK3nTFFSEOAaHeyLhlcjWGJRrqkftfXg82Gz-ekwR5gP0B_d-a_7fuw5EdiGFJ9Cd0C7X1QgEZktK16MdYMKUZRtwgB5ri_yLWnduppfLIzQIcigQGeU" alt="Jordan Wright Live" class="w-full h-full object-cover">
+              </div>
+              <div class="text-xs font-bold text-white flex items-center justify-center space-x-1.5">
+                <span>Jordan Wright</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </div>
+              <div class="text-[10px] text-neutral-300">Host · Design Technician</div>
+
+              <!-- Pinned LiDAR Ingress thumbnail preview -->
+              <div onclick="navigate('ingress')" class="cursor-pointer absolute top-0 right-2 w-24 bg-black/80 rounded-lg p-1.5 border border-white/20 text-left hover:border-brand-sage transition-all">
+                <div class="text-[8px] text-brand-sage uppercase font-bold">CAD Deck</div>
+                <div class="text-[9px] text-white truncate">ELEV-02B.DWG</div>
+                <div class="text-[8px] text-neutral-400">Tap to inspect</div>
+              </div>
+            </div>
+
+            <!-- Live Speech-to-Text Transcript -->
+            <div class="bg-black/40 backdrop-blur-md rounded-xl p-3 border border-white/10 text-left mb-3">
+              <div class="text-[9px] uppercase tracking-wider text-brand-sage font-bold mb-0.5 flex items-center justify-between">
+                <span>Gemini Live AI Transcriber</span>
+                <span class="text-neutral-400">Recording Specs</span>
+              </div>
+              <div class="text-xs text-neutral-200 italic leading-snug">
+                "Looking closely at your foyer stair landing, the quarter-sawn white oak millwork inset will align cleanly with the original 1912 header..."
+              </div>
+            </div>
+
+            <!-- Meet Action Controls -->
+            <div class="flex items-center justify-center space-x-3 pt-2">
+              <button class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30">
+                <i data-lucide="mic" class="w-4 h-4"></i>
+              </button>
+              <button class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30">
+                <i data-lucide="video" class="w-4 h-4"></i>
+              </button>
+              <button onclick="navigate('ingress')" class="w-10 h-10 rounded-full bg-brand-sage text-brand-charcoal flex items-center justify-center font-bold" title="LiDAR Deck">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+              </button>
+              <button onclick="navigate('home'); showToast('Call concluded. Meeting minutes saved to Vault.')" class="px-4 py-2 rounded-full bg-red-600 text-white text-xs font-bold hover:bg-red-700 flex items-center space-x-1">
+                <i data-lucide="phone-off" class="w-3.5 h-3.5"></i>
+                <span>Leave</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 7. SERVICES & PACKAGES
+      'services': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <div class="mb-2">
+            <span class="text-[10px] uppercase tracking-wider text-brand-sage-dark font-semibold">Our Capabilities</span>
+            <h1 class="serif-title text-xl font-bold text-brand-charcoal">Design & Fabrication Packages</h1>
+          </div>
+
+          <!-- Service 1 -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <h3 class="text-sm font-bold text-brand-charcoal">Historic Craftsman Modernization</h3>
+                <div class="text-[11px] text-brand-sage-dark font-medium">Bespoke Millwork & Interior Architecture</div>
+              </div>
+              <span class="text-xs font-bold text-brand-charcoal">From $4,500</span>
+            </div>
+            <p class="text-xs text-neutral-600 leading-relaxed font-light mb-3">
+              Full LiDAR laser-scan capture, 3D ingress simulation, and custom joinery fabricated alongside the Ohio Artisan Timber Guild.
+            </p>
+            <button onclick="navigate('booking')" class="text-xs font-semibold text-brand-charcoal hover:text-brand-sage-dark flex items-center">
+              <span>Book Discovery Call</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1"></i>
+            </button>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <h3 class="text-sm font-bold text-brand-charcoal">White-Glove Ingress & Installation</h3>
+                <div class="text-[11px] text-brand-sage-dark font-medium">Sprinter 3500 Delivery & Precision Rigging</div>
+              </div>
+              <span class="text-xs font-bold text-brand-charcoal">Direct Quote</span>
+            </div>
+            <p class="text-xs text-neutral-600 leading-relaxed font-light mb-3">
+              Temperature-controlled transport, gate intercom dispatch, and vacuum-crawler staircase rigging for heavy heirloom timber.
+            </p>
+            <button onclick="navigate('ingress')" class="text-xs font-semibold text-brand-charcoal hover:text-brand-sage-dark flex items-center">
+              <span>View Ingress Vector</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1"></i>
+            </button>
+          </div>
+        </div>
+      `,
+
+      // 8. CURATED SHOP & CHECKOUT
+      'shop': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-brand-sage-dark font-semibold">Atelier Collection</span>
+              <h1 class="serif-title text-xl font-bold text-brand-charcoal">Curated Pieces & Materials</h1>
+            </div>
+            <button onclick="navigate('cart')" class="px-3 py-1.5 rounded-full bg-brand-charcoal text-white text-xs font-medium flex items-center space-x-1.5">
+              <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+              <span>Cart (2)</span>
+            </button>
+          </div>
+
+          <!-- Product Card 1 -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm space-y-3">
+            <div class="w-full h-36 rounded-lg bg-brand-sand flex items-center justify-center text-brand-sage-dark">
+              <i data-lucide="armchair" class="w-12 h-12"></i>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-brand-charcoal">Artisan Bouclé Occasional Chair</h3>
+                <span class="text-sm font-bold text-brand-charcoal">$2,450.00</span>
+              </div>
+              <div class="text-xs text-neutral-500 font-light mt-0.5">Quarter-Sawn White Oak / Oatmeal Bouclé Weave</div>
+            </div>
+            <button onclick="navigate('cart')" class="w-full py-2.5 rounded-lg bg-brand-sand hover:bg-brand-charcoal hover:text-white text-brand-charcoal text-xs font-semibold transition-colors">
+              Configure & Purchase
+            </button>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm space-y-3">
+            <div class="w-full h-28 rounded-lg bg-brand-sand flex items-center justify-center text-brand-sage-dark">
+              <i data-lucide="box" class="w-10 h-10"></i>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-brand-charcoal">Nordic Materiality Swatch Box</h3>
+                <span class="text-sm font-bold text-brand-charcoal">$85.00</span>
+              </div>
+              <div class="text-xs text-neutral-500 font-light mt-0.5">Physical samples: Linens, Oak Finishes & Hardware</div>
+            </div>
+            <button onclick="navigate('cart')" class="w-full py-2.5 rounded-lg bg-brand-sand hover:bg-brand-charcoal hover:text-white text-brand-charcoal text-xs font-semibold transition-colors">
+              Order Sample Box
+            </button>
+          </div>
+        </div>
+      `,
+
+      // 9. CART & STRIPE CHECKOUT
+      'cart': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <h1 class="serif-title text-xl font-bold text-brand-charcoal">Your Atelier Order</h1>
+            <button onclick="navigate('shop')" class="text-xs text-neutral-500 hover:text-brand-charcoal">Continue Browsing</button>
+          </div>
+
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm space-y-3">
+            ${AppState.cart.map(item => `
+              <div class="flex items-start justify-between pb-3 border-b border-neutral-100 last:border-0 last:pb-0">
+                <div>
+                  <div class="text-xs font-bold text-brand-charcoal">${item.name}</div>
+                  <div class="text-[11px] text-neutral-500">${item.spec}</div>
+                  <div class="text-[10px] text-brand-sage-dark font-medium mt-0.5">Qty: ${item.quantity} · Ready for White-Glove Dispatch</div>
+                </div>
+                <div class="text-xs font-bold text-brand-charcoal">$${item.price.toLocaleString()}</div>
+              </div>
+            `).join('')}
+
+            <div class="pt-3 border-t border-brand-border flex items-center justify-between text-xs font-bold text-brand-charcoal">
+              <span>Total Investment</span>
+              <span>$2,535.00</span>
+            </div>
+          </div>
+
+          <!-- Direct Stripe Checkout Simulation -->
+          <div class="bg-brand-sand border border-brand-border rounded-xl p-4 space-y-3">
+            <div class="text-xs font-semibold text-brand-charcoal flex items-center space-x-1.5">
+              <i data-lucide="credit-card" class="w-4 h-4 text-brand-sage-dark"></i>
+              <span>Stripe 256-Bit SSL Checkout</span>
+            </div>
+            <button onclick="showToast('Order confirmed! Syncing delivery window...'); navigate('vault');" class="w-full py-3 rounded-full bg-brand-charcoal text-white text-xs font-semibold hover:bg-black transition-colors shadow-sm">
+              Pay with Stripe ($2,535.00)
+            </button>
+            <div class="text-[10px] text-center text-neutral-500">
+              Includes Chagrin Falls White-Glove Ingress & Packaging Removal
+            </div>
+          </div>
+        </div>
+      `,
+
+      // 10. CLIENT PORTAL VAULT & GEMINI AI CONCIERGE
+      'vault': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <!-- Client Dossier Header -->
+          <div class="bg-brand-charcoal text-white rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-brand-sage">Client Portal Vault</span>
+              <span class="px-2 py-0.5 rounded-full bg-brand-sage/20 text-brand-sage-light text-[10px] font-bold">Phase 4 Active</span>
+            </div>
+            <h1 class="serif-title text-xl font-bold mb-1">${AppState.client.project}</h1>
+            <div class="text-xs text-neutral-300 font-light">${AppState.client.name} · ${AppState.client.location}</div>
+          </div>
+
+          <!-- Phase Milestone Progress Tracker -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm space-y-3">
+            <div class="text-xs font-bold text-brand-charcoal">Project Milestones</div>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-neutral-500">1. LiDAR Scan & BIM Model</span>
+                <span class="text-emerald-600 font-semibold">Completed</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-neutral-500">2. Ohio Guild Timber Kiln Audit</span>
+                <span class="text-emerald-600 font-semibold">Stamped</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-brand-charcoal font-semibold">3. Staircase Ingress Vector</span>
+                <span class="text-brand-sage-dark font-bold">Approved (42° Dogleg)</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-brand-charcoal font-bold">4. Sprinter 3500 Transit</span>
+                <span class="text-brand-sage-dark font-bold animate-pulse">In Progress (ETA 08:34)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fast Link to 3D Ingress Vector -->
+          <button onclick="navigate('ingress')" class="w-full p-4 rounded-xl bg-brand-sand border border-brand-border flex items-center justify-between hover:border-brand-sage transition-all">
+            <div class="flex items-center space-x-3 text-left">
+              <i data-lucide="box" class="w-5 h-5 text-brand-sage-dark"></i>
+              <div>
+                <div class="text-xs font-bold text-brand-charcoal">Inspect 3D Ingress Vector</div>
+                <div class="text-[11px] text-neutral-500">View dogleg staircase laser measurements</div>
+              </div>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-brand-charcoal"></i>
+          </button>
+        </div>
+      `,
+
+      // 11. 3D INGRESS CLEARANCE VECTOR (LiDAR INSPECTION)
+      'ingress': () => `
+        <div class="view-transition px-4 pt-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-brand-sage-dark font-semibold">LiDAR Telemetry</span>
+              <h1 class="serif-title text-xl font-bold text-brand-charcoal">3D Ingress Clearance Vector</h1>
+            </div>
+            <button onclick="navigate('vault')" class="text-xs text-brand-sage-dark font-semibold">Back to Vault</button>
+          </div>
+
+          <!-- BIM / Scan Simulation Viewport -->
+          <div class="bg-brand-charcoal rounded-2xl overflow-hidden p-4 text-white space-y-3">
+            <div class="flex items-center justify-between text-[11px] font-mono border-b border-white/10 pb-2">
+              <span class="text-brand-sage">ELEV-02B.DWG</span>
+              <span class="text-neutral-300">TOLERANCE: ±0.8MM</span>
+            </div>
+            <div class="h-44 rounded-xl bg-black/60 border border-white/10 flex flex-col items-center justify-center p-4 text-center">
+              <i data-lucide="layers" class="w-10 h-10 text-brand-sage mb-2"></i>
+              <div class="text-xs font-semibold text-white">42° Dogleg Grand Staircase Model</div>
+              <div class="text-[10px] text-neutral-400 mt-1">Ingress clearance: 38.4 in. (Rigging envelope: 34.2 in.)</div>
+              <div class="mt-2 inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px]">
+                <i data-lucide="check" class="w-3 h-3"></i>
+                <span>Clearance Verified For Vacuum Crawlers</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Spec Ledger -->
+          <div class="bg-white border border-brand-border rounded-xl p-4 shadow-sm text-xs space-y-2">
+            <div class="font-bold text-brand-charcoal mb-1">Rigging Crew Directives</div>
+            <div class="text-neutral-600 leading-relaxed font-light">
+              Sprinter 3500 transit van arrival at North Portico. Gate code transmitted (`7888#`). Corner edge shims and felt underlays staged for historic quarter-sawn riser protection.
+            </div>
+            <div class="pt-2 flex items-center justify-between border-t border-neutral-100">
+              <span class="text-[11px] text-neutral-500">Lead Architect: Jordan Wright</span>
+              <a href="tel:12345679616" class="text-[11px] font-bold text-brand-sage-dark hover:underline">
+                Call Jordan
+              </a>
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    // Client-side Router function
+    function navigate(route) {
+      if (!routes[route]) route = 'home';
+      AppState.currentRoute = route;
+
+      // Update URL hash for browser back/forward buttons
+      window.location.hash = route;
+
+      // Render View
+      const root = document.getElementById('appRoot');
+      root.innerHTML = routes[route]();
+
+      // Scroll top
+      root.scrollTop = 0;
+
+      // Update Lucide SVG icons
+      lucide.createIcons();
+
+      // Update tab active states
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-brand-charcoal', 'font-semibold');
+        btn.classList.add('text-neutral-400');
+      });
+      const activeTab = document.getElementById(`tab-${route}`);
+      if (activeTab) {
+        activeTab.classList.remove('text-neutral-400');
+        activeTab.classList.add('text-brand-charcoal', 'font-semibold');
+      }
+    }
+
+    // Filter toggle on About page
+    function setEndorsementFilter(filter) {
+      AppState.activeFilter = filter;
+      navigate('about');
+    }
+
+    // Hashchange listener for direct navigation & browser back button
+    window.addEventListener('hashchange', () => {
+      const target = window.location.hash.replace('#', '') || 'home';
+      if (target !== AppState.currentRoute) {
+        navigate(target);
+      }
+    });
+
+    // Initial boot
+    document.addEventListener('DOMContentLoaded', () => {
+      const initial = window.location.hash.replace('#', '') || 'home';
+      navigate(initial);
+    });
+  </script>
+</body>
+</html>
